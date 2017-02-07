@@ -1,0 +1,3 @@
+rootProject.name = 'CustomPicker'
+
+include ':app'
