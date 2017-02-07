@@ -65,6 +65,44 @@ render(){
 }
 ```
 [see full custom picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomPicker/app.js)
+
+## Custom Library Picker
+use awesome [react-native-country-picker-modal](https://github.com/xcarpentier/react-native-country-picker-modal) to select country
+
+|![2560-02-08 02_26_20](https://cloud.githubusercontent.com/assets/21040043/22707625/fecc68d2-eda5-11e6-868c-42d3c544fcc8.gif)|![2560-02-08 02_43_18](https://cloud.githubusercontent.com/assets/21040043/22708333/6d0938b4-eda8-11e6-9ca1-ae217536b4cc.gif)|
+|---------------|----------|
+```jsx
+onPressFlag(){
+    this.refs.countryPicker.openModal()
+}
+
+selectCountry(country){
+    this.refs.phone.selectCountry(country.cca2.toLowerCase())
+    this.setState({cca2: country.cca2})
+}
+
+render(){
+    return(
+        <View style={styles.container}>
+            <PhoneInput 
+                ref='phone' 
+                onPressFlag={this.onPressFlag}
+            />
+
+            <CountryPicker
+                ref='countryPicker'
+                onChange={(value)=> this.selectCountry(value)}
+                translation='eng'
+                cca2={this.state.cca2}
+            >
+                <View></View>
+            </CountryPicker>
+        </View>
+    )
+}
+```
+[see full custom library picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomLibraryPicker/app.js)
+
 ## Configuration
 ### Properties:
 | Property Name | Type | Default | Description |
@@ -94,4 +132,5 @@ render(){
 | getValue | string | none | return current phone number |
 | getFlag | object | iso2:string | return flag image |
 | getAllCountries | object | none | return country object in country picker |
+| getPickerData | object | nont | return country object with flag image |
 | selectCountry | void | iso2:string | set phone input to specific country |
