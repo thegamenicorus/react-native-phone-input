@@ -22,8 +22,51 @@ render(){
 ```
 [see full basic example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/BasicExample/app.js)
 
-### Configuration
-##### Properties:
+## Custom Your Own Picker
+|![2560-02-08 01_10_22](https://cloud.githubusercontent.com/assets/21040043/22705440/0cc61896-ed9e-11e6-83d6-e4d98cf5c06f.gif)|![2560-02-08 01_46_21](https://cloud.githubusercontent.com/assets/21040043/22706060/73b04994-eda0-11e6-8e86-3ae1a94d9bd3.gif)|
+|---------------|----------|
+
+
+1. in componentDidMount, keep this.refs.phone.getPickerData() in state
+2. create function for open your modal (onPressFlag in example)
+3. \<PhoneInput onPressFlag={function in 2.} />
+4. call this.refs.phone.selectCountry for set country of \<PhoneInput />
+```jsx
+componentDidMount(){
+    this.setState({
+        pickerData: this.refs.phone.getPickerData()
+    })
+}
+
+onPressFlag(){
+    this.refs.myCountryPicker.open()
+}
+
+selectCountry(country){
+    this.refs.phone.selectCountry(country.iso2)
+}
+
+render(){
+    return(
+        <View style={styles.container}>
+            <PhoneInput 
+                ref='phone' 
+                onPressFlag={this.onPressFlag}
+            />
+
+            <ModalPickerImage
+                ref='myCountryPicker'
+                data={this.state.pickerData}
+                onChange={(country)=>{ this.selectCountry(country) }}
+                cancelText='Cancel'
+            />
+        </View>
+    )
+}
+```
+[see full custom picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomPicker/app.js)
+## Configuration
+### Properties:
 | Property Name | Type | Default | Description |
 |---------------|----------|-------------|----------------------------------------------------------------|
 | initialCountry | string | 'us' | initial selected country |
@@ -43,7 +86,7 @@ render(){
 | onSelectCountry | function(iso2) | null | function to be invoked when country picker is selected |
 | onPressFlag | function() | null | function to be invoked when press on flag image |
 
-##### Functions:
+### Functions:
 | Function Name | Return Type | Parameters | Description |
 |---------------|----------|-------------|----------------------------------------------------------------|
 | isValidNumber | boolean | none | return true if current phone number is valid |
