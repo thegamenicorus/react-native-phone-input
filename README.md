@@ -49,8 +49,8 @@ selectCountry(country){
 render(){
     return(
         <View style={styles.container}>
-            <PhoneInput 
-                ref='phone' 
+            <PhoneInput
+                ref='phone'
                 onPressFlag={this.onPressFlag}
             />
 
@@ -84,8 +84,8 @@ selectCountry(country){
 render(){
     return(
         <View style={styles.container}>
-            <PhoneInput 
-                ref='phone' 
+            <PhoneInput
+                ref='phone'
                 onPressFlag={this.onPressFlag}
             />
 
@@ -113,6 +113,7 @@ render(){
 | flagStyle | object | null | custom styles for flag image eg. {{width: 50, height: 30, borderWidth:0}} |
 | textStyle | object | null | custom styles for phone number text input eg. {{fontSize: 14}} |
 | textProps | object | null | properties for phone number text input eg. {{placeholder: 'Telephone number'}} |
+| textComponent | function | TextField | the input component to use |
 | offset | int | 10 | distance between flag and phone number |
 | pickerButtonColor | string | '#007AFF' | set button color of country picker |
 | pickerBackgroundColor | string | 'white' | set background color of country picker |
