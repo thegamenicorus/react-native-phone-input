@@ -134,4 +134,5 @@ render(){
 | getFlag | object | iso2:string | return flag image |
 | getAllCountries | object | none | return country object in country picker |
 | getPickerData | object | nont | return country object with flag image |
+| focus | void | none | focus the phone input |
 | selectCountry | void | iso2:string | set phone input to specific country |
