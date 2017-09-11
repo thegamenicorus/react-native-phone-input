@@ -1,9 +1,7 @@
 'use strict';
 
-import React,{
-    PropTypes
-} from 'react';
-
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
@@ -115,7 +113,7 @@ export default class ModalPicker extends BaseComponent {
             <TouchableOpacity key={option.key} onPress={()=>this.onChange(option)}>
                 <View style={[styles.optionStyle, this.props.optionStyle, {flex:1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
                     <View style={{flex:0.15}}>
-                      <Image source={option.image} resizeMode='stretch' style={{width: 30, height: 16}}/>  
+                      <Image source={option.image} resizeMode='stretch' style={{width: 30, height: 16}}/>
                     </View>
                     <View style={{flex:0.7, alignItems: 'center'}}>
                       <Text style={[styles.optionTextStyle,this.props.optionTextStyle, {color: '#434343', fontSize: 14}]}>{option.label}</Text>
