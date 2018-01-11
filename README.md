@@ -136,3 +136,4 @@ render(){
 | getPickerData | object | nont | return country object with flag image |
 | focus | void | none | focus the phone input |
 | selectCountry | void | iso2:string | set phone input to specific country |
+| getCountryCode | string | none | return countryCode of current phone number |
