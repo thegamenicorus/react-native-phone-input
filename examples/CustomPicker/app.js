@@ -1,68 +1,66 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import PhoneInput from 'react-native-phone-input'
-import ModalPickerImage from './ModalPickerImage'
+import PhoneInput from 'react-native-phone-input';
+import ModalPickerImage from './ModalPickerImage';
 
-class App extends Component{
+class App extends Component {
+  constructor() {
+    super();
 
-    constructor(){
-        super()
+    this.onPressFlag = this.onPressFlag.bind(this);
+    this.selectCountry = this.selectCountry.bind(this);
+    this.state = {
+      pickerData: null,
+    };
+  }
 
-        this.onPressFlag = this.onPressFlag.bind(this)
-        this.selectCountry = this.selectCountry.bind(this)
-        this.state = {
-            pickerData: null
-        }
+  componentDidMount() {
+    this.setState({
+      pickerData: this.phone.getPickerData(),
+    });
+  }
 
-    }
+  onPressFlag() {
+    this.myCountryPicker.open();
+  }
 
-    componentDidMount(){
-        this.setState({
-            pickerData: this.refs.phone.getPickerData()
-        })
-    }
+  selectCountry(country) {
+    this.phone.selectCountry(country.iso2);
+  }
 
-    onPressFlag(){
-        this.refs.myCountryPicker.open()
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <PhoneInput
+          ref={(ref) => {
+            this.phone = ref;
+          }}
+          onPressFlag={this.onPressFlag}
+        />
 
-    selectCountry(country){
-        this.refs.phone.selectCountry(country.iso2)
-    }
-
-    render(){
-        return(
-            <View style={styles.container}>
-                <PhoneInput 
-                    ref='phone' 
-                    onPressFlag={this.onPressFlag}
-                />
-
-                <ModalPickerImage
-                    ref='myCountryPicker'
-                    data={this.state.pickerData}
-                    onChange={(country)=>{ this.selectCountry(country) }}
-                    cancelText='Cancel'
-                />
-            </View>
-        )
-    }
+        <ModalPickerImage
+          ref={(ref) => {
+            this.myCountryPicker = ref;
+          }}
+          data={this.state.pickerData}
+          onChange={(country) => {
+            this.selectCountry(country);
+          }}
+          cancelText="Cancel"
+        />
+      </View>
+    );
+  }
 }
 
 let styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        padding: 20,
-        paddingTop: 60
-    },
-})
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 20,
+    paddingTop: 60,
+  },
+});
 
-module.exports = App
-
+module.exports = App;
