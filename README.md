@@ -103,6 +103,13 @@ render(){
 ```
 [see full custom library picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomLibraryPicker/app.js)
 
+## Custom Countries
+```jsx
+<PhoneInput
+  countriesList={require('./countries.json')}
+/>
+```
+
 ## Configuration
 ### Properties:
 | Property Name | Type | Default | Description |
