@@ -115,6 +115,8 @@ render(){
 | Property Name | Type | Default | Description |
 |---------------|----------|-------------|----------------------------------------------------------------|
 | initialCountry | string | 'us' | initial selected country |
+| allowZeroAfterCountryCode | bool | true | allow user input 0 after country code |
+| disabled | bool | false | if true, disable all interaction of this component |
 | value | string | null | initial phone number |
 | style | object | null | custom styles to be applied if supplied |
 | flagStyle | object | null | custom styles for flag image eg. {{width: 50, height: 30, borderWidth:0}} |
@@ -144,4 +146,5 @@ render(){
 | getPickerData | object | nont | return country object with flag image |
 | focus | void | none | focus the phone input |
 | selectCountry | void | iso2:string | set phone input to specific country |
-| getCountryCode | string | none | return countryCode of current phone number |
+| getCountryCode | string | none | return country dial code of current phone number |
+| getISOCode | string | none | return country iso code of current phone number |
