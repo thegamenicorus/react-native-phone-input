@@ -27,35 +27,35 @@ render(){
 |---------------|----------|
 
 
-1. in componentDidMount, keep this.refs.phone.getPickerData() in state
+1. in componentDidMount, keep this.phone.getPickerData() in state
 2. create function for open your modal (onPressFlag in example)
 3. \<PhoneInput onPressFlag={function in 2.} />
-4. call this.refs.phone.selectCountry for set country of \<PhoneInput />
+4. call this.phone.selectCountry for set country of \<PhoneInput />
 ```jsx
 componentDidMount(){
     this.setState({
-        pickerData: this.refs.phone.getPickerData()
+        pickerData: this.phone.getPickerData()
     })
 }
 
 onPressFlag(){
-    this.refs.myCountryPicker.open()
+    this.myCountryPicker.open()
 }
 
 selectCountry(country){
-    this.refs.phone.selectCountry(country.iso2)
+    this.phone.selectCountry(country.iso2)
 }
 
 render(){
     return(
         <View style={styles.container}>
             <PhoneInput
-                ref='phone'
+                ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
             />
 
             <ModalPickerImage
-                ref='myCountryPicker'
+                ref={(ref) => { this.myCountryPicker = ref; }}
                 data={this.state.pickerData}
                 onChange={(country)=>{ this.selectCountry(country) }}
                 cancelText='Cancel'
@@ -73,11 +73,11 @@ use awesome [react-native-country-picker-modal](https://github.com/xcarpentier/r
 |---------------|----------|
 ```jsx
 onPressFlag(){
-    this.refs.countryPicker.openModal()
+    this.countryPicker.openModal()
 }
 
 selectCountry(country){
-    this.refs.phone.selectCountry(country.cca2.toLowerCase())
+    this.phone.selectCountry(country.cca2.toLowerCase())
     this.setState({cca2: country.cca2})
 }
 
@@ -85,12 +85,12 @@ render(){
     return(
         <View style={styles.container}>
             <PhoneInput
-                ref='phone'
+                ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
             />
 
             <CountryPicker
-                ref='countryPicker'
+                ref={(ref) => { this.countryPicker = ref; }}
                 onChange={(value)=> this.selectCountry(value)}
                 translation='eng'
                 cca2={this.state.cca2}
@@ -102,6 +102,13 @@ render(){
 }
 ```
 [see full custom library picker example](https://github.com/thegamenicorus/react-native-phone-input/blob/master/examples/CustomLibraryPicker/app.js)
+
+## Custom Countries
+```jsx
+<PhoneInput
+  countriesList={require('./countries.json')}
+/>
+```
 
 ## Configuration
 ### Properties:
@@ -124,6 +131,7 @@ render(){
 | onChangePhoneNumber | function(number) | null | function to be invoked when phone number is changed |
 | onSelectCountry | function(iso2) | null | function to be invoked when country picker is selected |
 | onPressFlag | function() | null | function to be invoked when press on flag image |
+| countriesList | array | null | custom countries list |
 
 ### Functions:
 | Function Name | Return Type | Parameters | Description |
