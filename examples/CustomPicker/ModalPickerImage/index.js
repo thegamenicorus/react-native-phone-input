@@ -1,12 +1,18 @@
-
-
-import React from 'react';
-import { View, Modal, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  View,
+  Modal,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  TouchableWithoutFeedback,
+} from 'react-native';
+
 import styles from './style';
-import BaseComponent from './BaseComponent';
 
 let componentIndex = 0;
 
@@ -42,18 +48,16 @@ const defaultProps = {
   cancelText: 'cancel',
 };
 
-export default class ModalPicker extends BaseComponent {
+export default class ModalPicker extends Component {
   constructor() {
     super();
-
-    this._bind('onChange', 'open', 'close', 'renderChildren');
 
     this.state = {
       animationType: 'slide',
       modalVisible: false,
       transparent: false,
       selected: 'please select',
-      data: [],
+      optionList: <View />,
     };
   }
 
@@ -64,27 +68,30 @@ export default class ModalPicker extends BaseComponent {
 
   componentWillReceiveProps(nextProps) {
     this.setState({ data: nextProps.data });
+    this.setState({
+      optionList: this.renderOptionList(nextProps.data),
+    })
   }
 
-  onChange(item) {
+  onChange = (item) => {
     this.props.onChange(item);
     this.setState({ selected: item.label });
     this.close();
   }
 
-  close() {
+  close = () => {
     this.setState({
       modalVisible: false,
     });
   }
 
-  open() {
+  open = () => {
     this.setState({
       modalVisible: true,
     });
   }
 
-  renderSection(section) {
+  renderSection = (section) => {
     return (
       <View key={section.key} style={[styles.sectionStyle, this.props.sectionStyle]}>
         <Text style={[styles.sectionTextStyle, this.props.sectionTextStyle]}>{section.label}</Text>
@@ -92,7 +99,7 @@ export default class ModalPicker extends BaseComponent {
     );
   }
 
-  renderOption(option) {
+  renderOption = (option) => {
     return (
       <TouchableOpacity key={option.key} onPress={() => this.onChange(option)}>
         <View
@@ -137,14 +144,18 @@ export default class ModalPicker extends BaseComponent {
     );
   }
 
-  renderOptionList() {
-    const options = this.state.data.map((item) => {
-      if (item.section) {
-        return this.renderSection(item);
-      }
+  renderOptionList = (data) => {
+    const options = <FlatList
+                      data={data}
+                      keyExtractor={(item) => item.label}
+                      renderItem={({ item }) => {
+                        if (item.section) {
+                          return this.renderSection(item);
+                        }
 
-      return this.renderOption(item);
-    });
+                        return this.renderOption(item);
+                      }}
+                    />;
 
     return (
       <View
@@ -169,7 +180,7 @@ export default class ModalPicker extends BaseComponent {
     );
   }
 
-  renderChildren() {
+  renderChildren = () => {
     if (this.props.children) {
       return this.props.children;
     }
@@ -184,7 +195,11 @@ export default class ModalPicker extends BaseComponent {
         onRequestClose={this.close}
         animationType={this.state.animationType}
       >
-        {this.renderOptionList()}
+        <TouchableWithoutFeedback
+          onPress={this.close}
+        >
+          {this.state.optionList}
+        </TouchableWithoutFeedback>
       </Modal>
     );
 
