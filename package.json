@@ -24,8 +24,8 @@
     "android"
   ],
   "dependencies": {
-    "google-libphonenumber": "^2.0.9",
     "lodash": "^4.17.4",
+    "validator": "^10.3.0",
     "prop-types": "^15.5.10"
   },
   "peerDependencies": {
