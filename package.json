@@ -26,7 +26,8 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "validator": "^10.3.0",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "@bodhiveggie/countries": "0.0.1"
   },
   "peerDependencies": {
     "react-native": ">= 0.25"
