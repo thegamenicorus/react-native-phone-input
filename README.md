@@ -8,7 +8,7 @@ Phone input box for React Native
 
 ## Installation
 
-```
+```bash
 npm i react-native-phone-input --save
 ```
 
@@ -18,9 +18,9 @@ npm i react-native-phone-input --save
 import PhoneInput from 'react-native-phone-input'
 
 render(){
-    return(
-        <PhoneInput ref='phone'/>
-    )
+  return(
+    <PhoneInput ref='phone'/>
+  )
 }
 ```
 
@@ -39,35 +39,35 @@ render(){
 
 ```jsx
 componentDidMount(){
-    this.setState({
-        pickerData: this.phone.getPickerData()
-    })
+  this.setState({
+    pickerData: this.phone.getPickerData()
+  })
 }
 
 onPressFlag(){
-    this.myCountryPicker.open()
+  this.myCountryPicker.open()
 }
 
 selectCountry(country){
-    this.phone.selectCountry(country.iso2)
+  this.phone.selectCountry(country.iso2)
 }
 
 render(){
-    return(
-        <View style={styles.container}>
-            <PhoneInput
-                ref={(ref) => { this.phone = ref; }}
-                onPressFlag={this.onPressFlag}
-            />
+  return(
+    <View style={styles.container}>
+      <PhoneInput
+        ref={(ref) => { this.phone = ref; }}
+        onPressFlag={this.onPressFlag}
+      />
 
-            <ModalPickerImage
-                ref={(ref) => { this.myCountryPicker = ref; }}
-                data={this.state.pickerData}
-                onChange={(country)=>{ this.selectCountry(country) }}
-                cancelText='Cancel'
-            />
-        </View>
-    )
+      <ModalPickerImage
+        ref={(ref) => { this.myCountryPicker = ref; }}
+        data={this.state.pickerData}
+        onChange={(country)=>{ this.selectCountry(country) }}
+        cancelText='Cancel'
+      />
+    </View>
+  )
 }
 ```
 
@@ -83,32 +83,32 @@ use awesome [react-native-country-picker-modal](https://github.com/xcarpentier/r
 
 ```jsx
 onPressFlag(){
-    this.countryPicker.openModal()
+  this.countryPicker.openModal()
 }
 
 selectCountry(country){
-    this.phone.selectCountry(country.cca2.toLowerCase())
-    this.setState({cca2: country.cca2})
+  this.phone.selectCountry(country.cca2.toLowerCase())
+  this.setState({cca2: country.cca2})
 }
 
 render(){
-    return(
-        <View style={styles.container}>
-            <PhoneInput
-                ref={(ref) => { this.phone = ref; }}
-                onPressFlag={this.onPressFlag}
-            />
+  return(
+    <View style={styles.container}>
+      <PhoneInput
+        ref={(ref) => { this.phone = ref; }}
+        onPressFlag={this.onPressFlag}
+      />
 
-            <CountryPicker
-                ref={(ref) => { this.countryPicker = ref; }}
-                onChange={(value)=> this.selectCountry(value)}
-                translation='eng'
-                cca2={this.state.cca2}
-            >
-                <View></View>
-            </CountryPicker>
-        </View>
-    )
+      <CountryPicker
+        ref={(ref) => { this.countryPicker = ref; }}
+        onChange={(value)=> this.selectCountry(value)}
+        translation='eng'
+        cca2={this.state.cca2}
+      >
+      <View></View>
+      </CountryPicker>
+    </View>
+  )
 }
 ```
 
