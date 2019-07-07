@@ -150,16 +150,18 @@ render(){
 
 ### Functions:
 
-| Function Name   | Return Type | Parameters  | Description                                      |
-| --------------- | ----------- | ----------- | ------------------------------------------------ |
-| isValidNumber   | boolean     | none        | return true if current phone number is valid     |
-| getNumberType   | string      | none        | return true type of current phone number         |
-| getValue        | string      | none        | return current phone number                      |
-| getFlag         | object      | iso2:string | return flag image                                |
-| getAllCountries | object      | none        | return country object in country picker          |
-| getPickerData   | object      | nont        | return country object with flag image            |
-| focus           | void        | none        | focus the phone input                            |
-| blur            | void        | none        | blur the phone input                             |
-| selectCountry   | void        | iso2:string | set phone input to specific country              |
-| getCountryCode  | string      | none        | return country dial code of current phone number |
-| getISOCode      | string      | none        | return country iso code of current phone number  |
+| Function Name   | Return Type | Parameters  | Description                                       |
+| --------------- | ----------- | ----------- | ------------------------------------------------- |
+| isValidNumber   | boolean     | none        | return true if current phone number is valid      |
+| getNumberType   | string      | none        | return true type of current phone number          |
+| getValue        | string      | none        | return current phone number                       |
+| getFlag         | object      | iso2:string | return flag image                                 |
+| getAllCountries | object      | none        | return country object in country picker           |
+| getPickerData   | object      | nont        | return country object with flag image             |
+| focus           | void        | none        | focus the phone input                             |
+| blur            | void        | none        | blur the phone input                              |
+| selectCountry   | void        | iso2:string | set phone input to specific country               |
+| getCountryCode  | string      | none        | return country dial code of current phone number  |
+| getISOCode      | string      | none        | return country iso code of current phone number   |
+| onPressCancel   | func        | none        | handler to be called when taps the cancel button  |
+| onPressConfirm  | func        | none        | handler to be called when taps the confirm button |
