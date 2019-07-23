@@ -24,7 +24,7 @@
     "android"
   ],
   "dependencies": {
-    "google-libphonenumber": "^3.2.2",
+    "google-libphonenumber": "^3.2.3",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10"
   },
