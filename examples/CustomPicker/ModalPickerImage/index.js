@@ -63,7 +63,7 @@ export default class ModalPicker extends BaseComponent {
   }
 
   componentDidUpdate() {
-    this.setState({ data: this.data });
+    this.setState({ data: this.props.data });
   }
 
   onChange(item) {
