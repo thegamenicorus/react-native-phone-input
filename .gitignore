@@ -36,4 +36,9 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# IDEs files
 .vscode
+.idea
+
+# MacOS files
+.DS_Store
