@@ -12,6 +12,7 @@ class App extends Component {
     this.selectCountry = this.selectCountry.bind(this);
     this.state = {
       cca2: 'US',
+      isCountryModalOpen: false
     };
   }
 
@@ -21,14 +22,21 @@ class App extends Component {
     });
   }
 
+  toggleCountryModal() {
+    this.setState((state) => ({
+      isCountryModalOpen: !state.isCountryModalOpen
+    }))
+  }
+
   onPressFlag() {
-    this.countryPicker.openModal();
+    this.toggleCountryModal()
   }
 
   selectCountry(country) {
     this.phone.selectCountry(country.cca2.toLowerCase());
     this.setState({ cca2: country.cca2 });
   }
+
 
   render() {
     return (
@@ -41,12 +49,13 @@ class App extends Component {
         />
 
         <CountryPicker
-          ref={(ref) => {
-            this.countryPicker = ref;
-          }}
-          onChange={value => this.selectCountry(value)}
+          onSelect={value => this.selectCountry(value)}
           translation="eng"
-          cca2={this.state.cca2}
+          countryCode={this.state.cca2}
+          modalProps={{
+            visible: this.state.isCountryModalOpen
+          }}
+          onClose={() => this.toggleCountryModal()}
         >
           <View />
         </CountryPicker>
