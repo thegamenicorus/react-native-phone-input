@@ -44,29 +44,33 @@ componentDidMount(){
     })
 }
 
-onPressFlag(){
-    this.myCountryPicker.open()
-}
+onPressFlag = () => {
+    this.setState({visible: true});
+};
 
-selectCountry(country){
-    this.phone.selectCountry(country.iso2)
-}
+selectCountry = (country) => {
+    this.setState({
+    cca2: country.cca2.toLowerCase(),
+    phone: `+${country.callingCode[0]}`,
+    });
+};
 
 render(){
     return(
         <View style={styles.container}>
-            <PhoneInput
-                ref={(ref) => { this.phone = ref; }}
-                onPressFlag={this.onPressFlag}
-            />
-
-            <ModalPickerImage
-                ref={(ref) => { this.myCountryPicker = ref; }}
-                data={this.state.pickerData}
-                onChange={(country)=>{ this.selectCountry(country) }}
-                cancelText='Cancel'
-            />
-        </View>
+                <PhoneInput
+                  style={styles.phone}
+                  initialCountry={this.state.cca2}
+                  onChangePhoneNumber={(tell) => this.setState({phone: tell})}
+                  value={phone}
+                />
+                <CountryPicker
+                  onSelect={(value) => this.selectCountry(value)}
+                  translation="eng"
+                  cca2={this.state.cca2}>
+                  <View></View>
+                </CountryPicker>
+              </View>
     )
 }
 ```
@@ -117,7 +121,7 @@ render(){
 ## Custom Countries
 
 ```jsx
-<PhoneInput countriesList={require('./countries.json')} />
+<PhoneInput countriesList={require("./countries.json")} />
 ```
 
 ## Configuration
