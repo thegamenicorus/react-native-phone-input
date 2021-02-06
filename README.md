@@ -5,6 +5,10 @@ Phone input box for React Native
 | ![2560-02-07 01_32_33](https://cloud.githubusercontent.com/assets/21040043/22661097/aa41852e-ecd6-11e6-84da-375cbe05020f.gif) | ![2560-02-08 00_04_18](https://cloud.githubusercontent.com/assets/21040043/22702110/3758ecc0-ed92-11e6-9d2e-421b76d4e2b5.gif) |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
+## Versions
+ * 0.x.x has been deprecated and is no longer maintained
+ * 1.x.x is the current version and is actively maintained (please submit a PR for improvements)
+
 
 ## Installation
 
