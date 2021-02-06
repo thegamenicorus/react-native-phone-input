@@ -126,6 +126,7 @@ render(){
 
 | Property Name             | Type             | Default   | Description                                                                    |
 | ------------------------- | ---------------- | --------- | ------------------------------------------------------------------------------ |
+| autoFormat                | boolean          | false     | Format while typing                                                            |
 | initialCountry            | string           | 'us'      | initial selected country                                                       |
 | allowZeroAfterCountryCode | bool             | true      | allow user input 0 after country code                                          |
 | disabled                  | bool             | false     | if true, disable all interaction of this component                             |
@@ -141,7 +142,8 @@ render(){
 | pickerItemStyle           | object           | null      | custom styles for text in country picker eg. {{fontSize: 14}}                  |
 | cancelText                | string           | 'Cancel'  | cancel word                                                                    |
 | confirmText               | string           | 'Confirm' | confirm word                                                                   |
-| buttonTextStyle           | object           | null      | custom styles for country picker button                                        |
+| cancelTextStyle           | object           | null      | custom styles for country picker cancel button                                 |
+| confirmTextStyle          | object           | null      | custom styles for country picker confirm button                                |
 | onChangePhoneNumber       | function(number) | null      | function to be invoked when phone number is changed                            |
 | onSelectCountry           | function(iso2)   | null      | function to be invoked when country picker is selected                         |
 | onPressFlag               | function()       | null      | function to be invoked when press on flag image                                |

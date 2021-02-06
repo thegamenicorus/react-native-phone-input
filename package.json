@@ -1,14 +1,18 @@
 {
   "name": "react-native-phone-input",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "description": "Phone input box for React Native",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./bin/build.sh",
+    "lint-fix": "./node_modules/.bin/eslint --quiet --ext .js,.jsx,.ts,.tsx --fix ./",
+    "lint": "./node_modules/.bin/eslint --quiet --ext .js,.jsx,.ts,.tsx ./",
+    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register -r tsconfig-paths/register --config .mocharc.js ./tests/**/*.test.ts --exit",
+    "test-coverage": "./node_modules/.bin/nyc --config ./nyc.config.js npm run test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:thegamenicorus/react-native-phone-input.git"
+    "url": "https://github.com/rili-live/react-native-phone-input"
   },
   "keywords": [
     "react-native",
@@ -29,12 +33,38 @@
     "prop-types": "^15.5.10"
   },
   "peerDependencies": {
-    "react-native": ">= 0.25"
+    "react-native": ">= 0.25",
+    "@react-native-picker/picker": ">= 1.0"
   },
-  "author": "Watcharachai Kanjaikaew (https://github.com/thegamenicorus)",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^0.1.3",
+    "@react-native-picker/picker": "^1.9.10",
+    "@types/chai": "^4.2.12",
+    "@types/mocha": "^5.2.7",
+    "@types/react-native": "^0.63.48",
+    "@types/react-native-phone-input": "^0.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^4.3.7",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.10.2",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.1.3"
+  },
+  "author": "Zack Anselm (https://github.com/zizzle6717)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thegamenicorus/react-native-phone-input/issues"
+    "url": "https://github.com/rili-live/react-native-phone-input/issues"
   },
-  "homepage": "https://github.com/thegamenicorus/react-native-phone-input"
+  "homepage": "https://github.com/rili-live/react-native-phone-input",
+  "types": "./typings/index.d.ts"
 }

@@ -1,0 +1,42 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"lib": ["es6"],
+		"baseUrl": ".",
+		"rootDir": "./src/",
+		"typeRoots": ["./node_modules/@types", "types"],
+		"declaration": true,
+		"removeComments": false,
+		"noLib": false,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"experimentalDecorators": true,
+		"inlineSourceMap": true,               /* Emit a single file with source maps instead of having a separate file. */
+    "inlineSources": true,
+		"jsx": "react",
+		"paths": {},
+		"pretty": true,
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"strict": true,
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"noImplicitUseStrict": false,
+		"noFallthroughCasesInSwitch": true,
+		"moduleResolution": "node",
+		"outDir": "dist",
+	},
+	"files": [
+		"src/typings/index.d.ts",
+		"tests/test.d.ts"
+	],
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules/**/*.*"
+	],
+	"compileOnSave": false
+}
