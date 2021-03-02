@@ -48,7 +48,7 @@ class PhoneNumber {
 
     // eslint-disable-next-line class-methods-use-this
     isNumeric(n) {
-        return !Number.isNaN(parseFloat(n)) && Number.isFinite(n);
+        return !Number.isNaN(parseFloat(n)) && Number.isFinite(Number(n));
     }
 
     getCountryCodeOfNumber(number) {
