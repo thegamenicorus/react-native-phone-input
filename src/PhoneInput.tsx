@@ -22,23 +22,28 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     constructor(props) {
         super(props);
 
-        let { countriesList, disabled, initialCountry, initialValue } = this.props;
+        let {
+            initialCountry, initialValue
+        } = this.props;
+
+        const {
+            countriesList, disabled,
+        } = this.props;
 
         if (countriesList) {
             Country.setCustomCountriesData(countriesList);
         }
 
-        if(initialValue){
-            if(initialValue[0] !== '+') {
+        if (initialValue) {
+            if (initialValue[0] !== '+') {
                 initialValue = `+${initialValue}`;
             }
 
             initialCountry = PhoneNumber.getCountryCodeOfNumber(initialValue);
-        }
-        else {
+        } else {
             const countryData = PhoneNumber.getCountryDataByCode(initialCountry);
             initialValue = countryData ? `+${countryData.dialCode}` : '';
-        } 
+        }
 
         this.state = {
             disabled,
@@ -131,7 +136,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     }
 
     setNumber = (number) => {
-        if(this.state.value !== number) {
+        if (this.state.value !== number) {
             this.updateValue(number);
         }
     }
@@ -151,18 +156,18 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     }
 
     updateValue(number, actionAfterSetState: any = null) {
+        let modifiedNumber = number;
         const { allowZeroAfterCountryCode } = this.props;
-        let iso2: string;
-     
-        if (number[0] !== '+') {
-            number = `+${number}`;
+
+        if (modifiedNumber[0] !== '+') {
+            modifiedNumber = `+${modifiedNumber}`;
         }
-        number = allowZeroAfterCountryCode
-            ? number
-            : this.possiblyEliminateZeroAfterCountryCode(number);
-        iso2 = PhoneNumber.getCountryCodeOfNumber(number);
-        
-        this.setState({ iso2, value: number }, actionAfterSetState);
+        modifiedNumber = allowZeroAfterCountryCode
+            ? modifiedNumber
+            : this.possiblyEliminateZeroAfterCountryCode(modifiedNumber);
+        const iso2: string = PhoneNumber.getCountryCodeOfNumber(modifiedNumber);
+
+        this.setState({ iso2, value: modifiedNumber }, actionAfterSetState);
     }
 
     // eslint-disable-next-line class-methods-use-this
