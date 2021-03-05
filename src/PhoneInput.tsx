@@ -22,37 +22,35 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     constructor(props) {
         super(props);
 
-        const { countriesList, disabled, initialCountry } = this.props;
+        let { countriesList, disabled, initialCountry, initialValue } = this.props;
 
         if (countriesList) {
             Country.setCustomCountriesData(countriesList);
         }
-        const countryData = PhoneNumber.getCountryDataByCode(initialCountry);
+
+        if(initialValue){
+            if(initialValue[0] !== '+') {
+                initialValue = `+${initialValue}`;
+            }
+
+            initialCountry = PhoneNumber.getCountryCodeOfNumber(initialValue);
+        }
+        else {
+            const countryData = PhoneNumber.getCountryDataByCode(initialCountry);
+            initialValue = countryData ? `+${countryData.dialCode}` : '';
+        } 
 
         this.state = {
-            iso2: initialCountry,
             disabled,
-            formattedNumber: countryData ? `+${countryData.dialCode}` : '',
-            value: null,
-            inputValue: '',
+            iso2: initialCountry,
+            value: initialValue,
         };
     }
 
-    componentDidMount() {
-        if (this.props.value) {
-            this.updateFlagAndFormatNumber(this.props.value);
-        }
-    }
-
     componentDidUpdate() {
-        const { value, disabled } = this.props;
+        const { disabled } = this.props;
         if (disabled !== this.state.disabled) {
             this.setState({ disabled }); // eslint-disable-line react/no-did-update-set-state
-        }
-
-        if (value && value !== this.state.value) {
-            this.setState({ value }); // eslint-disable-line react/no-did-update-set-state
-            this.updateFlagAndFormatNumber(value);
         }
     }
 
@@ -62,7 +60,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                     this.props.onChangePhoneNumber?.(number);
             }
             : null;
-        this.updateFlagAndFormatNumber(number, actionAfterSetState);
+        this.updateValue(number, actionAfterSetState);
     }
 
     onPressFlag = () => {
@@ -99,16 +97,16 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     getFlag = (iso2) => Flags.get(iso2);
 
     getDialCode() {
-        return PhoneNumber.getDialCode(this.state.formattedNumber);
+        return PhoneNumber.getDialCode(this.state.value);
     }
 
     getValue() {
-        return this.state.formattedNumber.replace(/\s/g, '');
+        return this.state.value.replace(/\s/g, '');
     }
 
     getNumberType() {
         return PhoneNumber.getNumberType(
-            this.state.formattedNumber,
+            this.state.value,
             this.state.iso2
         );
     }
@@ -122,10 +120,9 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                 this.setState(
                     {
                         iso2,
-                        formattedNumber: `+${countryData.dialCode}`
+                        value: `+${countryData.dialCode}`
                     },
                     () => {
-                        this.updateFlagAndFormatNumber(this.state.inputValue);
                         if (this.props.onSelectCountry) this.props.onSelectCountry(iso2);
                     }
                 );
@@ -133,10 +130,16 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         }
     }
 
+    setNumber = (number) => {
+        if(this.state.value !== number) {
+            this.updateValue(number);
+        }
+    }
+
     isValidNumber() {
-        if (this.state.inputValue.length < 3) return false;
+        if (this.state.value.length < 4) return false;
         return PhoneNumber.isValidNumber(
-            this.state.formattedNumber,
+            this.state.value,
             this.state.iso2
         );
     }
@@ -147,21 +150,19 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
             : text;
     }
 
-    updateFlagAndFormatNumber(number, actionAfterSetState: any = null) {
-        const { allowZeroAfterCountryCode, initialCountry } = this.props;
-        let iso2 = this.getISOCode() || initialCountry;
-        let formattedPhoneNumber = number;
-        if (number) {
-            const countryCode = this.getCountryCode();
-            if (formattedPhoneNumber[0] !== '+' && countryCode !== null) {
-                formattedPhoneNumber = `+${countryCode.toString()}${formattedPhoneNumber.toString()}`;
-            }
-            formattedPhoneNumber = allowZeroAfterCountryCode
-                ? formattedPhoneNumber
-                : this.possiblyEliminateZeroAfterCountryCode(formattedPhoneNumber);
-            iso2 = PhoneNumber.getCountryCodeOfNumber(formattedPhoneNumber);
+    updateValue(number, actionAfterSetState: any = null) {
+        const { allowZeroAfterCountryCode } = this.props;
+        let iso2: string;
+     
+        if (number[0] !== '+') {
+            number = `+${number}`;
         }
-        this.setState({ iso2, formattedNumber: formattedPhoneNumber, inputValue: number }, actionAfterSetState);
+        number = allowZeroAfterCountryCode
+            ? number
+            : this.possiblyEliminateZeroAfterCountryCode(number);
+        iso2 = PhoneNumber.getCountryCodeOfNumber(number);
+        
+        this.setState({ iso2, value: number }, actionAfterSetState);
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -181,7 +182,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     }
 
     render() {
-        const { iso2, inputValue, disabled } = this.state;
+        const { iso2, value, disabled } = this.state;
         const TextComponent: any = this.props.textComponent || TextInput;
         return (
             <View style={[styles.container, this.props.style]}>
@@ -207,7 +208,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                         }}
                         keyboardType="phone-pad"
                         underlineColorAndroid="rgba(0,0,0,0)"
-                        value={inputValue}
+                        value={value}
                         {...this.props.textProps}
                     />
                 </View>

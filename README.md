@@ -134,7 +134,7 @@ render(){
 | initialCountry            | string           | 'us'      | initial selected country                                                       |
 | allowZeroAfterCountryCode | bool             | true      | allow user input 0 after country code                                          |
 | disabled                  | bool             | false     | if true, disable all interaction of this component                             |
-| value                     | string           | null      | initial phone number                                                           |
+| initialValue              | string           | null      | initial phone number                                                           |
 | style                     | object           | null      | custom styles to be applied if supplied                                        |
 | flagStyle                 | object           | null      | custom styles for flag image eg. {{width: 50, height: 30, borderWidth:0}}      |
 | textStyle                 | object           | null      | custom styles for phone number text input eg. {{fontSize: 14}}                 |
@@ -167,6 +167,7 @@ render(){
 | focus           | void        | none        | focus the phone input                             |
 | blur            | void        | none        | blur the phone input                              |
 | selectCountry   | void        | iso2:string | set phone input to specific country               |
+| setValue        | void        | string      | set phone input value                             |
 | getCountryCode  | string      | none        | return country dial code of current phone number  |
 | getISOCode      | string      | none        | return country iso code of current phone number   |
 | onPressCancel   | func        | none        | handler to be called when taps the cancel button  |

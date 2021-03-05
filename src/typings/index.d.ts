@@ -73,7 +73,7 @@ export interface ReactNativePhoneInputProps<TextComponentType extends React.Comp
     /**
      * Initial phone number
      */
-    value?: string;
+    initialValue?: string;
     /**
      * Custom styles to be applied if supplied
      */
@@ -205,6 +205,11 @@ export default class ReactNativePhoneInput<
     * Set phone input to specific country
     */
     selectCountry: (iso2: string) => void;
+
+    /**
+    * Set phone input value
+    */
+    setValue: (value: string) => void;
 
     /**
     * Return country dial code of current phone number
