@@ -160,7 +160,7 @@ render(){
 | --------------- | ----------- | ----------- | ------------------------------------------------- |
 | isValidNumber   | boolean     | none        | return true if current phone number is valid      |
 | getNumberType   | string      | none        | return true type of current phone number          |
-| getValue        | string      | none        | return current phone number                       |
+| getValue        | string      | none        | return current phone number (unformatted)         |
 | getFlag         | object      | iso2:string | return flag image                                 |
 | getAllCountries | object      | none        | return country object in country picker           |
 | getPickerData   | object      | nont        | return country object with flag image             |
