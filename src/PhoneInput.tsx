@@ -66,8 +66,8 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
 
     onChangePhoneNumber = (number) => {
         const actionAfterSetState = this.props.onChangePhoneNumber
-            ? (value: string, iso2: string) => {
-                    this.props.onChangePhoneNumber?.(value, iso2);
+            ? (displayValue: string, iso2: string) => {
+                    this.props.onChangePhoneNumber?.(displayValue, iso2);
             }
             : null;
         this.updateValue(number, actionAfterSetState);
@@ -111,8 +111,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     }
 
     getValue(text?) {
-        return (text || this.state.displayValue)
-            .replace(/[^0-9]/g, '');
+        return text ? text.replace(/[^0-9]/g, '') : this.state.value;
     }
 
     getNumberType() {
@@ -174,11 +173,13 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
             : this.possiblyEliminateZeroAfterCountryCode(modifiedNumber);
         const iso2: string = PhoneNumber.getCountryCodeOfNumber(modifiedNumber);
 
+        const displayValue = this.format(modifiedNumber);
+
         this.setState({
             iso2,
-            displayValue: this.format(modifiedNumber),
+            displayValue,
             value: modifiedNumber,
-        }, () => actionAfterSetState(modifiedNumber, iso2));
+        }, () => actionAfterSetState(displayValue, iso2));
     }
 
     // eslint-disable-next-line class-methods-use-this
