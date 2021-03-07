@@ -34,20 +34,25 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
             Country.setCustomCountriesData(countriesList);
         }
 
+        let displayValue = '';
+
         if (initialValue) {
             if (initialValue[0] !== '+') {
                 initialValue = `+${initialValue}`;
             }
 
             initialCountry = PhoneNumber.getCountryCodeOfNumber(initialValue);
+            displayValue = this.format(initialValue, initialCountry);
         } else {
             const countryData = PhoneNumber.getCountryDataByCode(initialCountry);
             initialValue = countryData ? `+${countryData.dialCode}` : '';
+            displayValue = initialValue;
         }
 
         this.state = {
             disabled,
             iso2: initialCountry,
+            displayValue,
             value: initialValue,
         };
     }
@@ -61,8 +66,8 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
 
     onChangePhoneNumber = (number) => {
         const actionAfterSetState = this.props.onChangePhoneNumber
-            ? () => {
-                    this.props.onChangePhoneNumber?.(number);
+            ? (iso2: string) => {
+                    this.props.onChangePhoneNumber?.(number, iso2);
             }
             : null;
         this.updateValue(number, actionAfterSetState);
@@ -105,8 +110,9 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         return PhoneNumber.getDialCode(this.state.value);
     }
 
-    getValue() {
-        return this.state.value.replace(/\s/g, '');
+    getValue(text?) {
+        return (text || this.state.displayValue)
+            .replace(/[^0-9]/g, '');
     }
 
     getNumberType() {
@@ -125,6 +131,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                 this.setState(
                     {
                         iso2,
+                        displayValue: this.format(`+${countryData.dialCode}`),
                         value: `+${countryData.dialCode}`
                     },
                     () => {
@@ -149,17 +156,17 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         );
     }
 
-    format(text) {
+    format(text, iso2?) {
         return this.props.autoFormat
-            ? PhoneNumber.format(text, this.state.iso2)
+            ? PhoneNumber.format(text, iso2 || this.state.iso2)
             : text;
     }
 
     updateValue(number, actionAfterSetState: any = null) {
-        let modifiedNumber = number;
+        let modifiedNumber = this.getValue(number);
         const { allowZeroAfterCountryCode } = this.props;
 
-        if (modifiedNumber[0] !== '+') {
+        if (modifiedNumber[0] !== '+' && number.length) {
             modifiedNumber = `+${modifiedNumber}`;
         }
         modifiedNumber = allowZeroAfterCountryCode
@@ -167,7 +174,11 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
             : this.possiblyEliminateZeroAfterCountryCode(modifiedNumber);
         const iso2: string = PhoneNumber.getCountryCodeOfNumber(modifiedNumber);
 
-        this.setState({ iso2, value: modifiedNumber }, actionAfterSetState);
+        this.setState({
+            iso2,
+            displayValue: this.format(modifiedNumber),
+            value: modifiedNumber,
+        }, () => actionAfterSetState(iso2));
     }
 
     // eslint-disable-next-line class-methods-use-this
@@ -187,7 +198,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
     }
 
     render() {
-        const { iso2, value, disabled } = this.state;
+        const { iso2, displayValue, disabled } = this.state;
         const TextComponent: any = this.props.textComponent || TextInput;
         return (
             <View style={[styles.container, this.props.style]}>
@@ -213,7 +224,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
                         }}
                         keyboardType="phone-pad"
                         underlineColorAndroid="rgba(0,0,0,0)"
-                        value={value}
+                        value={displayValue}
                         {...this.props.textProps}
                     />
                 </View>

@@ -91,6 +91,8 @@ class PhoneNumber {
 
         number.replace(/-/g, '')
             .replace(/ /g, '')
+            .replace(/\(/g, '')
+            .replace(/\)/g, '')
             .split('')
             .forEach((n: any) => {
                 formatted = formatter.inputDigit(n);
