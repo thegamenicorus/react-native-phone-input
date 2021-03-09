@@ -1,6 +1,6 @@
 {
   "name": "react-native-phone-input",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Phone input box for React Native",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "lint-fix": "./node_modules/.bin/eslint --quiet --ext .js,.jsx,.ts,.tsx --fix ./",
     "lint": "./node_modules/.bin/eslint --quiet --ext .js,.jsx,.ts,.tsx ./",
     "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register -r tsconfig-paths/register --config .mocharc.js ./tests/**/*.test.ts --exit",
-    "test-coverage": "./node_modules/.bin/nyc --config ./nyc.config.js npm run test"
+    "test-coverage": "./node_modules/.bin/nyc --config ./nyc.config.js npm run test",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -66,5 +67,8 @@
     "url": "https://github.com/rili-live/react-native-phone-input/issues"
   },
   "homepage": "https://github.com/rili-live/react-native-phone-input",
-  "types": "./typings/index.d.ts"
+  "types": "./typings/index.d.ts",
+  "files": [
+    "dist/"
+  ]
 }
