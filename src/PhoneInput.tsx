@@ -141,7 +141,7 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
         }
     }
 
-    setNumber = (number) => {
+    setValue = (number) => {
         if (this.state.value !== number) {
             this.updateValue(number);
         }

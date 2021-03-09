@@ -62,6 +62,11 @@ render(){
             <PhoneInput
                 ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
+                initialCountry={'us'}
+                initialValue="13178675309"
+                textProps={{
+                    placeholder: 'Enter a phone number...'
+                }}
             />
 
             <ModalPickerImage
@@ -95,12 +100,31 @@ selectCountry(country){
     this.setState({cca2: country.cca2})
 }
 
+// Updates the Flag on change
+onPhoneInputChange = (value, iso2) => {
+    const newState = {
+        phoneInputValue: value,
+    };
+
+    if (iso2) {
+        newState.countryCode = iso2?.toUpperCase();
+    }
+
+    this.setState(newState);
+}
+
 render(){
     return(
         <View style={styles.container}>
             <PhoneInput
                 ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
+                initialCountry={'us'}
+                initialValue="13178675309"
+                onChangePhoneNumber={this.onPhoneInputChange}
+                textProps={{
+                    placeholder: 'Enter a phone number...'
+                }}
             />
 
             <CountryPicker
