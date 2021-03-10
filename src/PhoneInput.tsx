@@ -179,7 +179,11 @@ export default class PhoneInput<TextComponentType extends React.ComponentType = 
             iso2,
             displayValue,
             value: modifiedNumber,
-        }, () => actionAfterSetState(displayValue, iso2));
+        }, () => {
+            if (actionAfterSetState) {
+                actionAfterSetState(displayValue, iso2);
+            }
+        });
     }
 
     // eslint-disable-next-line class-methods-use-this
