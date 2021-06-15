@@ -1,0 +1,14 @@
+root = true
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_size = 4
+
+[{*.js,.jsx,.ts,.tsx}]
+charset = utf-8
+indent_style = space
+indent_size = 4
+
+[{package.json,*.yml,*.css,*.scss}]
+indent_style = space
+indent_size = 4

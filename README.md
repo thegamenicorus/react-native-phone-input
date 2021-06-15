@@ -5,6 +5,10 @@ Phone input box for React Native
 | ![2560-02-07 01_32_33](https://cloud.githubusercontent.com/assets/21040043/22661097/aa41852e-ecd6-11e6-84da-375cbe05020f.gif) | ![2560-02-08 00_04_18](https://cloud.githubusercontent.com/assets/21040043/22702110/3758ecc0-ed92-11e6-9d2e-421b76d4e2b5.gif) |
 | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 
+## Versions
+ * 0.x.x has been deprecated and is no longer maintained
+ * 1.x.x is the current version and is actively maintained (please submit a PR for improvements)
+
 
 ## Installation
 
@@ -58,6 +62,11 @@ render(){
             <PhoneInput
                 ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
+                initialCountry={'us'}
+                initialValue="13178675309"
+                textProps={{
+                    placeholder: 'Enter a phone number...'
+                }}
             />
 
             <ModalPickerImage
@@ -91,12 +100,31 @@ selectCountry(country){
     this.setState({cca2: country.cca2})
 }
 
+// Updates the Flag on change
+onPhoneInputChange = (value, iso2) => {
+    const newState = {
+        phoneInputValue: value,
+    };
+
+    if (iso2) {
+        newState.countryCode = iso2?.toUpperCase();
+    }
+
+    this.setState(newState);
+}
+
 render(){
     return(
         <View style={styles.container}>
             <PhoneInput
                 ref={(ref) => { this.phone = ref; }}
                 onPressFlag={this.onPressFlag}
+                initialCountry={'us'}
+                initialValue="13178675309"
+                onChangePhoneNumber={this.onPhoneInputChange}
+                textProps={{
+                    placeholder: 'Enter a phone number...'
+                }}
             />
 
             <CountryPicker
@@ -126,10 +154,11 @@ render(){
 
 | Property Name             | Type             | Default   | Description                                                                    |
 | ------------------------- | ---------------- | --------- | ------------------------------------------------------------------------------ |
+| autoFormat                | boolean          | false     | Format while typing                                                            |
 | initialCountry            | string           | 'us'      | initial selected country                                                       |
 | allowZeroAfterCountryCode | bool             | true      | allow user input 0 after country code                                          |
 | disabled                  | bool             | false     | if true, disable all interaction of this component                             |
-| value                     | string           | null      | initial phone number                                                           |
+| initialValue              | string           | null      | initial phone number                                                           |
 | style                     | object           | null      | custom styles to be applied if supplied                                        |
 | flagStyle                 | object           | null      | custom styles for flag image eg. {{width: 50, height: 30, borderWidth:0}}      |
 | textStyle                 | object           | null      | custom styles for phone number text input eg. {{fontSize: 14}}                 |
@@ -141,7 +170,8 @@ render(){
 | pickerItemStyle           | object           | null      | custom styles for text in country picker eg. {{fontSize: 14}}                  |
 | cancelText                | string           | 'Cancel'  | cancel word                                                                    |
 | confirmText               | string           | 'Confirm' | confirm word                                                                   |
-| buttonTextStyle           | object           | null      | custom styles for country picker button                                        |
+| cancelTextStyle           | object           | null      | custom styles for country picker cancel button                                 |
+| confirmTextStyle          | object           | null      | custom styles for country picker confirm button                                |
 | onChangePhoneNumber       | function(number) | null      | function to be invoked when phone number is changed                            |
 | onSelectCountry           | function(iso2)   | null      | function to be invoked when country picker is selected                         |
 | onPressFlag               | function()       | null      | function to be invoked when press on flag image                                |
@@ -154,13 +184,14 @@ render(){
 | --------------- | ----------- | ----------- | ------------------------------------------------- |
 | isValidNumber   | boolean     | none        | return true if current phone number is valid      |
 | getNumberType   | string      | none        | return true type of current phone number          |
-| getValue        | string      | none        | return current phone number                       |
+| getValue        | string      | none        | return current phone number (unformatted)         |
 | getFlag         | object      | iso2:string | return flag image                                 |
 | getAllCountries | object      | none        | return country object in country picker           |
 | getPickerData   | object      | nont        | return country object with flag image             |
 | focus           | void        | none        | focus the phone input                             |
 | blur            | void        | none        | blur the phone input                              |
 | selectCountry   | void        | iso2:string | set phone input to specific country               |
+| setValue        | void        | string      | set phone input value                             |
 | getCountryCode  | string      | none        | return country dial code of current phone number  |
 | getISOCode      | string      | none        | return country iso code of current phone number   |
 | onPressCancel   | func        | none        | handler to be called when taps the cancel button  |
