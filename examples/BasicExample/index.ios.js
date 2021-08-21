@@ -6,9 +6,9 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
+    AppRegistry,
 } from 'react-native';
 
-import App from './app'
+import App from './app';
 
 AppRegistry.registerComponent('BasicExample', () => App);
